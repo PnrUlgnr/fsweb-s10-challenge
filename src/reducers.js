@@ -29,19 +29,26 @@ function baslangicNotlariniGetir(key) {
     return baslangicDegerleri;
   }
 }
-const minnetReducer = (state = baslangicDegerleri, action) => {
+const minnetReducer = (
+  state = baslangicNotlariniGetir(s10chLocalStorageKey),
+  action
+) => {
   switch (action.type) {
     case NOT_EKLE:
-      return {
+      const yeniNotlarState = {
         ...state,
         notlar: [...state.notlar, action.payload],
       };
+      localStorageStateYaz(s10chLocalStorageKey, yeniNotlarState);
+      return yeniNotlarState;
 
     case NOT_SIL:
-      return {
+      const silinmişNotlarState = {
         ...state,
         notlar: state.notlar.filter((not) => not.id !== action.payload),
       };
+      localStorageStateYaz(s10chLocalStorageKey, silinmişNotlarState);
+      return silinmişNotlarState;
 
     default:
       return state;

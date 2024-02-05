@@ -23,6 +23,7 @@ export const notEkleAPI = (yeniNot) => (dispatch) => {
     .then((res) => {
       if (res.status === 200) {
         // res.data objesi içerisinden ihtiyaç duyduğunuz değeri bulun ve oluşturduğunuz notEkle ile dispatch edin
+        console.log("notEkleAPI res", res);
       }
     })
     .catch((error) => console.log(error));
@@ -34,7 +35,10 @@ export const notSilAPI = (id) => (dispatch) => {
     .delete("https://httpbin.org/anything", { data: id })
     .then((res) => {
       if (res.status === 200) {
+        //dispatch(notEkle(yeniNot));
         // res.data objesi içerisinden ihtiyaç duyduğunuz değeri bulun ve oluşturduğunuz notSil ile dispatch edin
+        console.log("notSilAPI res", res);
+        dispatch(notSil(res.data.data));
       }
     })
     .catch((error) => console.log(error));
